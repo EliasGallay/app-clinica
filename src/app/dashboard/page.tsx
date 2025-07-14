@@ -1,127 +1,76 @@
+// app/dashboard/page.tsx
 "use client";
-
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { UpcomingAppointmentsCard } from "@/app/dashboard/components/UpcomingAppointmentsCard";
+import { AlertsCard } from "@/app/dashboard/components/AlertsCard";
+import { SummaryCard } from "@/app/dashboard/components/SummaryCard";
+import { SpecialtiesChartCard } from "@/app/dashboard/components/SpecialtiesChartCard";
 import { Button } from "@/components/ui/button";
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  Tooltip,
-  ResponsiveContainer,
-} from "recharts";
-
-const summary = [
-  { title: "Pacientes registrados", value: 1245 },
-  { title: "Turnos para hoy", value: 23 },
-  { title: "Turnos confirmados", value: 18 },
-  { title: "Médicos activos hoy", value: 5 },
+const summaryData = [
+  { title: "Pacientes Registrados", value: 1245 },
+  { title: "Turnos para Hoy", value: 23 },
+  { title: "Turnos Confirmados", value: 18 },
+  { title: "Médicos Activos Hoy", value: 5 },
 ];
 
-const appointments = [
+const upcomingAppointments = [
   {
-    hora: "08:00",
-    paciente: "Juan Pérez",
-    medico: "Dra. Gómez",
-    especialidad: "Clínica Médica",
+    time: "08:00",
+    patient: "Juan Pérez",
+    doctor: "Dra. Gómez",
+    specialty: "Clínica Médica",
   },
   {
-    hora: "08:30",
-    paciente: "Laura Martínez",
-    medico: "Dr. Rodríguez",
-    especialidad: "Pediatría",
+    time: "08:30",
+    patient: "Laura Martínez",
+    doctor: "Dr. Rodríguez",
+    specialty: "Pediatría",
   },
   {
-    hora: "09:00",
-    paciente: "Pedro García",
-    medico: "Dra. Fernández",
-    especialidad: "Ginecología",
+    time: "09:00",
+    patient: "Pedro García",
+    doctor: "Dra. Fernández",
+    specialty: "Ginecología",
   },
 ];
 
-const turnosEspecialidad = [
+const specialtiesData = [
   { name: "Clínica Médica", value: 12 },
   { name: "Pediatría", value: 6 },
   { name: "Ginecología", value: 4 },
-  { name: "Otro", value: 1 },
+  { name: "Otros", value: 1 },
 ];
 
-export default function DashboardHome() {
+const alerts = [
+  "Nuevo paciente registrado: María López.",
+  "El Dr. Ortega canceló los turnos de la tarde.",
+  "Actualización disponible del sistema.",
+];
+
+export default function DashboardPage() {
   return (
     <div className="p-6 space-y-6">
       {/* Título */}
-      <h2 className="text-2xl font-semibold">Resumen General del Día</h2>
+      <h2 className="text-2xl font-semibold">Resumen del Dashboard</h2>
 
       {/* Resumen */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        {summary.map((item) => (
-          <Card key={item.title}>
-            <CardHeader>
-              <CardTitle className="text-base">{item.title}</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-2xl font-bold">{item.value}</p>
-            </CardContent>
-          </Card>
+        {summaryData.map((item) => (
+          <SummaryCard key={item.title} title={item.title} value={item.value} />
         ))}
       </div>
 
-      {/* Próximos turnos + gráfico + alertas */}
+      {/* Próximos turnos + Gráfico + Alertas */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Turnos */}
-        <Card className="lg:col-span-1">
-          <CardHeader>
-            <CardTitle>Próximos Turnos</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-2">
-            {appointments.map((a, index) => (
-              <div key={index} className="text-sm">
-                <p>
-                  <span className="font-semibold">{a.hora}</span> — {a.paciente}{" "}
-                  con {a.medico} ({a.especialidad})
-                </p>
-              </div>
-            ))}
-          </CardContent>
-        </Card>
-
-        {/* Turnos por especialidad (Gráfico) */}
-        <Card className="lg:col-span-1">
-          <CardHeader>
-            <CardTitle>Turnos por Especialidad</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <ResponsiveContainer width="100%" height={200}>
-              <BarChart data={turnosEspecialidad}>
-                <XAxis dataKey="name" />
-                <YAxis allowDecimals={false} />
-                <Tooltip />
-                <Bar dataKey="value" />
-              </BarChart>
-            </ResponsiveContainer>
-          </CardContent>
-        </Card>
-
-        {/* Alertas */}
-        <Card className="lg:col-span-1">
-          <CardHeader>
-            <CardTitle>Alertas o Notificaciones</CardTitle>
-          </CardHeader>
-          <CardContent className="text-sm space-y-2">
-            <ul className="list-disc list-inside">
-              <li>Nuevo paciente registrado: María López.</li>
-              <li>El Dr. Ortega canceló sus turnos de la tarde.</li>
-              <li>Actualización disponible del sistema.</li>
-            </ul>
-          </CardContent>
-        </Card>
+        <UpcomingAppointmentsCard appointments={upcomingAppointments} />
+        <SpecialtiesChartCard data={specialtiesData} />
+        <AlertsCard items={alerts} />
       </div>
 
       {/* Acciones rápidas */}
       <div className="flex flex-wrap gap-4">
-        <Button>Registrar nuevo paciente</Button>
-        <Button variant="outline">Ver agenda de turnos</Button>
-        <Button variant="secondary">Gestionar médicos</Button>
+        <Button>Registrar Paciente</Button>
+        <Button variant="outline">Ver Turnos</Button>
+        <Button variant="secondary">Gestionar Médicos</Button>
       </div>
     </div>
   );
