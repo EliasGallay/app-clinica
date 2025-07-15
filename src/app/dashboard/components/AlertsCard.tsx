@@ -8,7 +8,7 @@ export function AlertsCard({ items }: Props) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Alerts & Notifications</CardTitle>
+        <CardTitle>Alertas & Notificationes</CardTitle>
       </CardHeader>
       <CardContent className="text-sm space-y-2">
         <ul className="list-disc list-inside">

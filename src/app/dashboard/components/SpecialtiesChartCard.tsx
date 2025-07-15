@@ -21,7 +21,7 @@ export function SpecialtiesChartCard({ data }: Props) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Appointments by Specialty</CardTitle>
+        <CardTitle>Turnos por Especialidad</CardTitle>
       </CardHeader>
       <CardContent>
         <ResponsiveContainer width="100%" height={200}>
