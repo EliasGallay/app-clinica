@@ -8,7 +8,7 @@ interface SummaryCardProps {
 export function SummaryCard({ title, value }: SummaryCardProps) {
   return (
     <Card>
-      <CardHeader>
+      <CardHeader className="min-h-[55px]">
         <CardTitle className="text-base">{title}</CardTitle>
       </CardHeader>
       <CardContent>
